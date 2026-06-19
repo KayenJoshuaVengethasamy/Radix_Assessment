@@ -7,10 +7,12 @@ import lombok.Getter;
 @Generated
 @Getter
 public class CustomException extends RuntimeException {
+
     private final ErrorConstants error;
 
     public CustomException(ErrorConstants error, Object... args) {
         super(String.format(error.getMessage(), args));
         this.error = error;
     }
+
 }

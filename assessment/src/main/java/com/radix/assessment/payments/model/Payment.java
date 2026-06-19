@@ -1,9 +1,7 @@
 package com.radix.assessment.payments.model;
 
-import com.radix.assessment.common.constants.loans.LoanStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import jdk.jfr.Description;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

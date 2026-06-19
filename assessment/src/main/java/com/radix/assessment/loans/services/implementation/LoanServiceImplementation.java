@@ -5,7 +5,7 @@ import com.radix.assessment.common.constants.loans.LoanStatus;
 import com.radix.assessment.common.exception.model.CustomException;
 import com.radix.assessment.loans.model.DTO.request.LoanRequest;
 import com.radix.assessment.loans.model.DTO.response.LoanResponse;
-import com.radix.assessment.loans.model.DTO.response.MapToResponse;
+import com.radix.assessment.loans.model.DTO.response.MapToLoanResponse;
 import com.radix.assessment.loans.model.Loan;
 import com.radix.assessment.loans.repository.LoanRepository;
 import com.radix.assessment.loans.services.LoanService;
@@ -19,12 +19,12 @@ import java.math.BigDecimal;
 public class LoanServiceImplementation implements LoanService {
 
     private final LoanRepository loanRepository;
-    private final MapToResponse map;
+    private final MapToLoanResponse map;
 
     @Override
     public LoanResponse createLoan(LoanRequest request) {
 
-        if (request.getLoanAmount().compareTo(BigDecimal.ZERO) > 0) {
+        if (request.getLoanAmount().compareTo(BigDecimal.ZERO) <= 0) {
             throw new CustomException(ErrorConstants.NEGATIVE_VALUE, "Loan Amount");
         }
 
@@ -41,7 +41,6 @@ public class LoanServiceImplementation implements LoanService {
         Loan saved = loanRepository.save(loan);
         return map.mapToResponse(saved);
     }
-
 
     @Override
     public LoanResponse getLoan(Long loanId) {

@@ -20,7 +20,6 @@ import java.math.BigDecimal;
 @Builder
 public class Loan {
 
-
     @Description("unique identifier for the loan")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,6 +45,5 @@ public class Loan {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private LoanStatus status;
-
 
 }

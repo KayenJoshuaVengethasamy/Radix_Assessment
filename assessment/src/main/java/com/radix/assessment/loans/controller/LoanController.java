@@ -26,4 +26,5 @@ public class LoanController {
     public ResponseEntity<LoanResponse> getLoan(@PathVariable Long loanId) {
         return ResponseEntity.ok(loanService.getLoan(loanId));
     }
+
 }

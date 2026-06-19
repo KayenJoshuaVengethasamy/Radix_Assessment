@@ -15,6 +15,7 @@ public class LoanDataLoader {
     @Bean
     CommandLineRunner init(LoanRepository loanRepository) {
         return args -> {
+
             loanRepository.save(
                     Loan.builder()
                             .loanAmount(BigDecimal.valueOf(500000))
@@ -23,6 +24,7 @@ public class LoanDataLoader {
                             .status(LoanStatus.ACTIVE)
                             .build()
             );
+
             loanRepository.save(
                     Loan.builder()
                             .loanAmount(BigDecimal.valueOf(500))
@@ -31,6 +33,7 @@ public class LoanDataLoader {
                             .status(LoanStatus.SETTLED)
                             .build()
             );
+
         };
     }
 }

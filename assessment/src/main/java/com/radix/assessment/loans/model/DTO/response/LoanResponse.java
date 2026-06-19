@@ -9,9 +9,11 @@ import java.math.BigDecimal;
 @Builder
 @Data
 public class LoanResponse {
+
     private Long loanId;
     private BigDecimal loanAmount;
     private BigDecimal remainingBalance;
     private Integer term;
     private LoanStatus status;
+
 }

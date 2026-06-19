@@ -4,7 +4,7 @@ import com.radix.assessment.loans.model.Loan;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MapToResponse {
+public class MapToLoanResponse {
 
     public LoanResponse mapToResponse(Loan loan) {
         return LoanResponse.builder()

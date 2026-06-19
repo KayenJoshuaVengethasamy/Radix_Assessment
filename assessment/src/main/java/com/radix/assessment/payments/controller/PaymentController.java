@@ -23,4 +23,5 @@ public class PaymentController {
     public ResponseEntity<PaymentResponse> makePayment(@Valid @RequestBody PaymentRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(paymentService.recordPayment(request));
     }
+
 }

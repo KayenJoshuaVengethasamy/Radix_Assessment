@@ -15,4 +15,5 @@ public class PaymentRequest {
     @NotNull(message = "paymentAmount is required")
     @Positive(message = "paymentAmount must be greater than zero")
     private BigDecimal paymentAmount;
+
 }

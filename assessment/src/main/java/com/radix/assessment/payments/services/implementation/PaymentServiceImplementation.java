@@ -31,11 +31,11 @@ public class PaymentServiceImplementation implements PaymentService {
                 .orElseThrow(() -> new CustomException(ErrorConstants.NO_LOAN, request.getLoanId()));
 
         if (loan.getStatus() == LoanStatus.SETTLED) {
-            throw new CustomException(ErrorConstants.LOAN_ALREADY_SETTLED, request);
+            throw new CustomException(ErrorConstants.LOAN_ALREADY_SETTLED, loan.getLoanId());
         }
 
         if (request.getPaymentAmount().compareTo(loan.getRemainingBalance()) > 0) {
-            throw new CustomException(ErrorConstants.PAYMENT_EXCEEDS_BALANCE, request);
+            throw new CustomException(ErrorConstants.PAYMENT_EXCEEDS_BALANCE, request.getPaymentAmount(), loan.getRemainingBalance());
         }
 
         Payment payment = Payment.builder()
@@ -61,4 +61,5 @@ public class PaymentServiceImplementation implements PaymentService {
                 .loanStatus(loan.getStatus())
                 .build();
     }
+
 }

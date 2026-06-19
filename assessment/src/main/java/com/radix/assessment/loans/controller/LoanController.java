@@ -3,7 +3,6 @@ package com.radix.assessment.loans.controller;
 import com.radix.assessment.loans.model.DTO.request.LoanRequest;
 import com.radix.assessment.loans.model.DTO.response.LoanResponse;
 import com.radix.assessment.loans.services.LoanService;
-import com.radix.assessment.loans.services.implementation.LoanServiceImplementation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

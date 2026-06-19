@@ -7,7 +7,6 @@ import com.radix.assessment.loans.model.DTO.response.MapToResponse;
 import com.radix.assessment.loans.model.Loan;
 import com.radix.assessment.loans.repository.LoanRepository;
 import com.radix.assessment.loans.services.LoanService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

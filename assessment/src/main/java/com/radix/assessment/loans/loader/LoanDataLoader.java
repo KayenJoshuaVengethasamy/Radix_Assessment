@@ -18,7 +18,7 @@ public class LoanDataLoader {
             loanRepository.save(
                     Loan.builder()
                             .loanAmount(BigDecimal.valueOf(500000))
-                            .remainingBalance(BigDecimal.valueOf(400000))
+                            .remainingBalance(BigDecimal.valueOf(500000))
                             .term(60)
                             .status(LoanStatus.ACTIVE)
                             .build()

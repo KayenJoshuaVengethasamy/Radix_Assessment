@@ -1,6 +1,8 @@
 package com.radix.assessment.payments.services.implementation;
 
+import com.radix.assessment.common.constants.ErrorConstants;
 import com.radix.assessment.common.constants.loans.LoanStatus;
+import com.radix.assessment.common.exception.model.CustomException;
 import com.radix.assessment.loans.model.Loan;
 import com.radix.assessment.loans.repository.LoanRepository;
 import com.radix.assessment.payments.model.DTO.request.PaymentRequest;
@@ -11,6 +13,7 @@ import com.radix.assessment.payments.services.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.math.BigDecimal;
 
 @Service
@@ -25,14 +28,14 @@ public class PaymentServiceImplementation implements PaymentService {
     public PaymentResponse recordPayment(PaymentRequest request) {
 
         Loan loan = loanRepository.findById(request.getLoanId())
-                .orElseThrow(() -> new RuntimeException("Loan not found with ID : " + request.getLoanId()));
+                .orElseThrow(() -> new CustomException(ErrorConstants.NO_LOAN, request.getLoanId()));
 
-        if (loan.getStatus() == LoanStatus.SETTLED){
-            throw new RuntimeException("Loan is already settled");
+        if (loan.getStatus() == LoanStatus.SETTLED) {
+            throw new CustomException(ErrorConstants.LOAN_ALREADY_SETTLED, request);
         }
 
-        if (request.getPaymentAmount().compareTo(loan.getRemainingBalance())>0){
-            throw new RuntimeException("Payment exceeds remaining loan amount");
+        if (request.getPaymentAmount().compareTo(loan.getRemainingBalance()) > 0) {
+            throw new CustomException(ErrorConstants.PAYMENT_EXCEEDS_BALANCE, request);
         }
 
         Payment payment = Payment.builder()
@@ -44,7 +47,7 @@ public class PaymentServiceImplementation implements PaymentService {
         BigDecimal newBalance = loan.getRemainingBalance().subtract(request.getPaymentAmount());
         loan.setRemainingBalance(newBalance);
 
-        if (newBalance.compareTo(BigDecimal.ZERO)==0){
+        if (newBalance.compareTo(BigDecimal.ZERO) == 0) {
             loan.setStatus(LoanStatus.SETTLED);
         }
 

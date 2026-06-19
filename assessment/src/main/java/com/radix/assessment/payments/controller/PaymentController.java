@@ -21,6 +21,6 @@ public class PaymentController {
 
     @PostMapping
     public ResponseEntity<PaymentResponse> makePayment(@Valid @RequestBody PaymentRequest request) {
-        return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body(paymentService.recordPayment(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(paymentService.recordPayment(request));
     }
 }

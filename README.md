@@ -1,10 +1,14 @@
-# Radix_Assessment
+# Radix Assessment
+
+A Loan Payment System within a single Spring Boot application
+
+---
 
 ![Java](https://img.shields.io/badge/Java-17-blue)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.1.0-green)
 ![Maven](https://img.shields.io/badge/Maven-3.9.6-orange)
-A Loan Payment System within a single Spring Boot application
-***
+
+---
 
 ## Quick Start
 

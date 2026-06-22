@@ -22,7 +22,10 @@ API available at:
 http://localhost:8080
 ```
 
-POSTMAN scripts : LoanPaymentSystem.postman_collection.json
+POSTMAN scripts :
+```text
+LoanPaymentSystem.postman_collection.json
+```
 
 ## Table of Contents
 

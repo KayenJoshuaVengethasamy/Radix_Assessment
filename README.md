@@ -66,6 +66,8 @@ Business rules enforced:
 - Overpayments are rejected.
 - A loan is automatically marked as `SETTLED` when the remaining balance reaches zero.
 
+***
+
 ## Tech Stack
 
 | Technology              | Version | Purpose                       |
@@ -508,12 +510,10 @@ Run a specific test class:
 
 ### Test Coverage
 
-| Test Class          | Scenarios Covered                                                                 |
-|---------------------|-------------------------------------------------------------------------------------------------|
-| `LoanServiceTest`   | Loan creation, status set to ACTIVE, balance equals loan amount, persistence, loan retrieval,   |
-|                     | not found                                                                                       |
-| `PaymentServiceTest`| Partial payment, balance reduction, full settlement, SETTLED state persistence, overpayment     |
-|                     | error, payment on settled loan, loan not found                                                  |
+| Test Class           | Scenarios Covered                                                                                           |
+|----------------------|-------------------------------------------------------------------------------------------------------------|
+| `LoanServiceTest`    | Loan creation, status set to ACTIVE, balance equals loan amount, persistence, loan retrieval, not found     |
+| `PaymentServiceTest` | Partial payment, balance reduction, full settlement, SETTLED state persistence, overpayment error, payment on settled loan, loan not found |
 
 ***
 

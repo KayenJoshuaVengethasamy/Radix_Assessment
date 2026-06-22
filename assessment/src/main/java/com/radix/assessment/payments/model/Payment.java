@@ -1,3 +1,12 @@
+/**
+ * Payment is a JPA entity that represents a payment record in the database. It stores information about payments made
+ * toward loans, including the associated loan ID and the payment amount. It maps to the payments table and is used for
+ * persisting payment transactions.
+ *
+ * @author Kayen Joshua Vengethasamy
+ * @since 2026-06-19
+ */
+
 package com.radix.assessment.payments.model;
 
 import jakarta.persistence.*;

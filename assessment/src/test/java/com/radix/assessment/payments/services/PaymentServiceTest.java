@@ -1,3 +1,9 @@
+/**
+ * LoanServiceTest is a unit test class that verifies the behavior of the LoanServiceImplementation. It uses Mockito
+ * to mock dependencies (LoanRepository and MapToLoanResponse) and ensures that loan creation and retrieval logic
+ * behaves correctly under different scenarios, including successful operations and error handling.
+ */
+
 package com.radix.assessment.payments.services;
 
 import com.radix.assessment.common.constants.ErrorConstants;
@@ -109,8 +115,6 @@ class PaymentServiceTest {
         verify(paymentRepository, times(1)).save(any(Payment.class));
     }
 
-    // ─── FULL SETTLEMENT ──────────────────────────────────────────────────────
-
     @Test
     @DisplayName("Should move loan to SETTLED when payment equals remaining balance")
     void recordPayment_ExactRemainingBalance_SettlesLoan() {
@@ -156,8 +160,6 @@ class PaymentServiceTest {
         ));
     }
 
-    // ─── OVERPAYMENT ──────────────────────────────────────────────────────────
-
     @Test
     @DisplayName("Should throw CustomException when payment exceeds remaining balance")
     void recordPayment_ExceedsBalance_ThrowsCustomException() {
@@ -191,8 +193,6 @@ class PaymentServiceTest {
         verify(loanRepository, never()).save(any());
     }
 
-    // ─── SETTLED LOAN ─────────────────────────────────────────────────────────
-
     @Test
     @DisplayName("Should throw CustomException when paying against a settled loan")
     void recordPayment_AlreadySettledLoan_ThrowsCustomException() {
@@ -211,8 +211,6 @@ class PaymentServiceTest {
 
         verify(paymentRepository, never()).save(any(Payment.class));
     }
-
-    // ─── LOAN NOT FOUND ───────────────────────────────────────────────────────
 
     @Test
     @DisplayName("Should throw CustomException when loan not found")

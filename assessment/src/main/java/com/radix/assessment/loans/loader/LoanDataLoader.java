@@ -1,3 +1,12 @@
+/**
+ * LoanDataLoader seeds the database with sample loan data when the application starts. It uses a CommandLineRunner
+ * bean to automatically insert predefined loan records into the repository, ensuring the system has initial test
+ * or demo data available at runtime. It will be lost each time the application is restarted
+ *
+ * @author Kayen Joshua Vengethasamy
+ * @since 2026-06-19
+ */
+
 package com.radix.assessment.loans.loader;
 
 import com.radix.assessment.common.constants.loans.LoanStatus;

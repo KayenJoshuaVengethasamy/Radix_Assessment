@@ -1,3 +1,12 @@
+/**
+ * Loan is a JPA entity that represents a loan record in the database. It defines the structure of the loans table
+ * and stores key loan attributes such as amount, remaining balance, term, and status. It also includes basic
+ * validation and persistence metadata to enforce data integrity at the database and application levels.
+ *
+ * @author Kayen Joshua Vengethasamy
+ * @since 2026-06-19
+ */
+
 package com.radix.assessment.loans.model;
 
 import com.radix.assessment.common.constants.loans.LoanStatus;

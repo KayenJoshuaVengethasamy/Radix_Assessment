@@ -1,3 +1,11 @@
+/**
+ * LoanServiceTest is a unit test class that verifies the behavior of the LoanServiceImplementation. It uses Mockito
+ * to mock dependencies (LoanRepository and MapToLoanResponse) and ensures that loan creation and retrieval logic
+ * behaves correctly under different scenarios, including successful operations and error handling.
+ */
+
+
+
 package com.radix.assessment.loans.services;
 
 import com.radix.assessment.common.constants.ErrorConstants;
@@ -64,8 +72,6 @@ class LoanServiceTest {
                 .build();
     }
 
-    // ─── CREATE LOAN ──────────────────────────────────────────────────────────
-
     @Test
     @DisplayName("Should create loan with ACTIVE status and remainingBalance equal to loanAmount")
     void createLoan_ValidRequest_ReturnsLoanResponse() {
@@ -118,8 +124,6 @@ class LoanServiceTest {
         verify(loanRepository, times(1)).save(any(Loan.class));
         verifyNoMoreInteractions(loanRepository);
     }
-
-    // ─── GET LOAN ─────────────────────────────────────────────────────────────
 
     @Test
     @DisplayName("Should return loan details when loan exists")

@@ -1,0 +1,146 @@
+{
+    "info": {
+        "name": "Radix Assessment - Loan Payment System",
+        "description": "Complete test suite for the Loan Payment System API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {"key": "baseUrl", "value": "http://localhost:8080", "type": "string"},
+        {"key": "loanId", "value": "", "type": "string"},
+        {"key": "settledLoanId", "value": "", "type": "string"}
+    ],
+    "item": [
+        {
+            "name": "Loans",
+            "item": [
+                {
+                    "name": "1. Create Loan (Valid)",
+                    "event": [{"listen": "test","script": {"exec": ["pm.test('Status is 201 Created', function () {","    pm.response.to.have.status(201);","});","","pm.test('Response has loanId', function () {","    const json = pm.response.json();","    pm.expect(json.loanId).to.be.a('number');","    pm.collectionVariables.set('loanId', json.loanId);","});","","pm.test('remainingBalance equals loanAmount', function () {","    const json = pm.response.json();","    pm.expect(json.remainingBalance).to.eql(json.loanAmount);","});","","pm.test('Status is ACTIVE', function () {","    const json = pm.response.json();","    pm.expect(json.status).to.eql('ACTIVE');","});"],"type": "text/javascript"}}],
+                    "request": {
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {"mode": "raw", "raw": "{\n    \"loanAmount\": 10000.00,\n    \"term\": 12\n}"},
+                        "url": {"raw": "{{baseUrl}}/loans", "host": ["{{baseUrl}}"], "path": ["loans"]}
+                    }
+                },
+                {
+                    "name": "2. Create Loan - Negative Amount (Validation Error)",
+                    "event": [{"listen": "test","script": {"exec": ["pm.test('Status is 400 Bad Request', function () {","    pm.response.to.have.status(400);","});","","pm.test('Error response has status and message', function () {","    const json = pm.response.json();","    pm.expect(json.status).to.eql(400);","});"],"type": "text/javascript"}}],
+                    "request": {
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {"mode": "raw", "raw": "{\n    \"loanAmount\": -500,\n    \"term\": 12\n}"},
+                        "url": {"raw": "{{baseUrl}}/loans", "host": ["{{baseUrl}}"], "path": ["loans"]}
+                    }
+                },
+                {
+                    "name": "3. Create Loan - Missing Fields (Validation Error)",
+                    "event": [{"listen": "test","script": {"exec": ["pm.test('Status is 400 Bad Request', function () {","    pm.response.to.have.status(400);","});"],"type": "text/javascript"}}],
+                    "request": {
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {"mode": "raw", "raw": "{\n    \"term\": 12\n}"},
+                        "url": {"raw": "{{baseUrl}}/loans", "host": ["{{baseUrl}}"], "path": ["loans"]}
+                    }
+                },
+                {
+                    "name": "4. Get Loan by ID (Valid)",
+                    "event": [{"listen": "test","script": {"exec": ["pm.test('Status is 200 OK', function () {","    pm.response.to.have.status(200);","});","","pm.test('Loan has all required fields', function () {","    const json = pm.response.json();","    pm.expect(json).to.have.property('loanId');","    pm.expect(json).to.have.property('loanAmount');","    pm.expect(json).to.have.property('remainingBalance');","    pm.expect(json).to.have.property('term');","    pm.expect(json).to.have.property('status');","});"],"type": "text/javascript"}}],
+                    "request": {
+                        "method": "GET",
+                        "url": {"raw": "{{baseUrl}}/loans/{{loanId}}", "host": ["{{baseUrl}}"], "path": ["loans", "{{loanId}}"]}
+                    }
+                },
+                {
+                    "name": "5. Get Loan - Not Found (404)",
+                    "event": [{"listen": "test","script": {"exec": ["pm.test('Status is 404 Not Found', function () {","    pm.response.to.have.status(404);","});","","pm.test('Error body is correct', function () {","    const json = pm.response.json();","    pm.expect(json.status).to.eql(404);","    pm.expect(json.message).to.include('999');","});"],"type": "text/javascript"}}],
+                    "request": {
+                        "method": "GET",
+                        "url": {"raw": "{{baseUrl}}/loans/999", "host": ["{{baseUrl}}"], "path": ["loans", "999"]}
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Payments",
+            "item": [
+                {
+                    "name": "6. Make Partial Payment (Valid)",
+                    "event": [{"listen": "test","script": {"exec": ["pm.test('Status is 201 Created', function () {","    pm.response.to.have.status(201);","});","","pm.test('Remaining balance reduced correctly', function () {","    const json = pm.response.json();","    pm.expect(json.remainingBalance).to.eql(8000);","});","","pm.test('Loan status still ACTIVE', function () {","    const json = pm.response.json();","    pm.expect(json.loanStatus).to.eql('ACTIVE');","});"],"type": "text/javascript"}}],
+                    "request": {
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {"mode": "raw", "raw": "{\n    \"loanId\": {{loanId}},\n    \"paymentAmount\": 2000.00\n}"},
+                        "url": {"raw": "{{baseUrl}}/payments", "host": ["{{baseUrl}}"], "path": ["payments"]}
+                    }
+                },
+                {
+                    "name": "7. Verify Balance Reduced (GET Loan)",
+                    "event": [{"listen": "test","script": {"exec": ["pm.test('Status is 200 OK', function () {","    pm.response.to.have.status(200);","});","","pm.test('Remaining balance reflects payment', function () {","    const json = pm.response.json();","    pm.expect(json.remainingBalance).to.eql(8000);","    pm.expect(json.status).to.eql('ACTIVE');","});"],"type": "text/javascript"}}],
+                    "request": {
+                        "method": "GET",
+                        "url": {"raw": "{{baseUrl}}/loans/{{loanId}}", "host": ["{{baseUrl}}"], "path": ["loans", "{{loanId}}"]}
+                    }
+                },
+                {
+                    "name": "8. Overpayment (422 Error)",
+                    "event": [{"listen": "test","script": {"exec": ["pm.test('Status is 422 Unprocessable Entity', function () {","    pm.response.to.have.status(422);","});","","pm.test('Error message returned', function () {","    const json = pm.response.json();","    pm.expect(json.status).to.eql(422);","});"],"type": "text/javascript"}}],
+                    "request": {
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {"mode": "raw", "raw": "{\n    \"loanId\": {{loanId}},\n    \"paymentAmount\": 99999.00\n}"},
+                        "url": {"raw": "{{baseUrl}}/payments", "host": ["{{baseUrl}}"], "path": ["payments"]}
+                    }
+                },
+                {
+                    "name": "9. Settle Loan in Full",
+                    "event": [{"listen": "test","script": {"exec": ["pm.test('Status is 201 Created', function () {","    pm.response.to.have.status(201);","});","","pm.test('Remaining balance is zero', function () {","    const json = pm.response.json();","    pm.expect(json.remainingBalance).to.eql(0);","});","","pm.test('Loan status is SETTLED', function () {","    const json = pm.response.json();","    pm.expect(json.loanStatus).to.eql('SETTLED');","});"],"type": "text/javascript"}}],
+                    "request": {
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {"mode": "raw", "raw": "{\n    \"loanId\": {{loanId}},\n    \"paymentAmount\": 8000.00\n}"},
+                        "url": {"raw": "{{baseUrl}}/payments", "host": ["{{baseUrl}}"], "path": ["payments"]}
+                    }
+                },
+                {
+                    "name": "10. Verify Loan is SETTLED (GET Loan)",
+                    "event": [{"listen": "test","script": {"exec": ["pm.test('Status is 200 OK', function () {","    pm.response.to.have.status(200);","});","","pm.test('Loan is SETTLED with zero balance', function () {","    const json = pm.response.json();","    pm.expect(json.status).to.eql('SETTLED');","    pm.expect(json.remainingBalance).to.eql(0);","});"],"type": "text/javascript"}}],
+                    "request": {
+                        "method": "GET",
+                        "url": {"raw": "{{baseUrl}}/loans/{{loanId}}", "host": ["{{baseUrl}}"], "path": ["loans", "{{loanId}}"]}
+                    }
+                },
+                {
+                    "name": "11. Payment on Settled Loan (422 Error)",
+                    "event": [{"listen": "test","script": {"exec": ["pm.test('Status is 422 Unprocessable Entity', function () {","    pm.response.to.have.status(422);","});"],"type": "text/javascript"}}],
+                    "request": {
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {"mode": "raw", "raw": "{\n    \"loanId\": {{loanId}},\n    \"paymentAmount\": 100.00\n}"},
+                        "url": {"raw": "{{baseUrl}}/payments", "host": ["{{baseUrl}}"], "path": ["payments"]}
+                    }
+                },
+                {
+                    "name": "12. Payment on Non-Existent Loan (404)",
+                    "event": [{"listen": "test","script": {"exec": ["pm.test('Status is 404 Not Found', function () {","    pm.response.to.have.status(404);","});","","pm.test('Error body is correct', function () {","    const json = pm.response.json();","    pm.expect(json.status).to.eql(404);","});"],"type": "text/javascript"}}],
+                    "request": {
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {"mode": "raw", "raw": "{\n    \"loanId\": 999,\n    \"paymentAmount\": 100.00\n}"},
+                        "url": {"raw": "{{baseUrl}}/payments", "host": ["{{baseUrl}}"], "path": ["payments"]}
+                    }
+                },
+                {
+                    "name": "13. Payment - Negative Amount (400)",
+                    "event": [{"listen": "test","script": {"exec": ["pm.test('Status is 400 Bad Request', function () {","    pm.response.to.have.status(400);","});"],"type": "text/javascript"}}],
+                    "request": {
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {"mode": "raw", "raw": "{\n    \"loanId\": {{loanId}},\n    \"paymentAmount\": -500\n}"},
+                        "url": {"raw": "{{baseUrl}}/payments", "host": ["{{baseUrl}}"], "path": ["payments"]}
+                    }
+                }
+            ]
+        }
+    ]
+}

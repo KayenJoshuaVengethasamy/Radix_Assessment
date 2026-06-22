@@ -1,3 +1,12 @@
+/**
+ * GlobalExceptionHandler is a centralized exception handling component that intercepts exceptions thrown across
+ * all controllers and creates consistent HTTP error responses. It ensures that the API returns structured
+ * and meaningful error messages instead of raw stack traces.
+ *
+ * @author Kayen Joshua Vengethasamy
+ * @since 2026-06-19
+ */
+
 package com.radix.assessment.common.exception.model;
 
 import com.radix.assessment.common.exception.model.DTO.response.ErrorResponse;

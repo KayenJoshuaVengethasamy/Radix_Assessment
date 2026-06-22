@@ -1,3 +1,12 @@
+/**
+ * PaymentServiceImplementation contains the core business logic for processing loan payments.
+ * It validates payment rules, updates loan state, persists payment records, and ensures data consistency
+ * using a transactional boundary.
+ *
+ * @author Kayen Joshua Vengethasamy
+ * @since 2026-06-19
+ */
+
 package com.radix.assessment.payments.services.implementation;
 
 import com.radix.assessment.common.constants.ErrorConstants;

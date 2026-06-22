@@ -1,3 +1,12 @@
+/**
+ * LoanServiceImplementation contains the core business logic for creating and retrieving loans.
+ * It validates input data, enforces business rules, interacts with the database via LoanRepository,
+ * and maps entities to response DTOs using MapToLoanResponse.
+ *
+ * @author Kayen Joshua Vengethasamy
+ * @since 2026-06-19
+ */
+
 package com.radix.assessment.loans.services.implementation;
 
 import com.radix.assessment.common.constants.ErrorConstants;

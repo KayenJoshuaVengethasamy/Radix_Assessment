@@ -1,3 +1,11 @@
+/**
+ * LoanRequest is used to capture and validate input data when creating a new loan. It ensures that incoming requests
+ * contain valid values before they reach the service layer using Bean Validation annotations.
+ *
+ * @author Kayen Joshua Vengethasamy
+ * @since 2026-06-19
+ */
+
 package com.radix.assessment.loans.model.DTO.request;
 
 import jakarta.validation.constraints.NotNull;

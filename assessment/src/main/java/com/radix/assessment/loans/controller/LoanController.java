@@ -1,3 +1,12 @@
+/**
+ * LoanController exposes the HTTP endpoint /loans for managing loans.It acts as the entry point for loan requests,
+ * delegating business logic to the LoanService and returning the appropriate HTTP response. It supports creating a
+ * new loan and retrieving an existing loan by the loan ID.
+ *
+ * @author Kayen Joshua Vengethasamy
+ * @since 2026-06-19
+ */
+
 package com.radix.assessment.loans.controller;
 
 import com.radix.assessment.loans.model.DTO.request.LoanRequest;

@@ -1,3 +1,12 @@
+/**
+ * PaymentController is a REST controller that exposes an endpoint for processing loan payments.
+ * It receives payment requests from clients, validates them, delegates the business logic to the PaymentService,
+ * and returns a structured response confirming the recorded payment.
+ *
+ * @author Kayen Joshua Vengethasamy
+ * @since 2026-06-19
+ */
+
 package com.radix.assessment.payments.controller;
 
 import com.radix.assessment.payments.model.DTO.request.PaymentRequest;
